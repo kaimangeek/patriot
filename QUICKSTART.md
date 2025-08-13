@@ -38,7 +38,7 @@ npm run setup-bot
 # Push в репозиторий
 git add .
 git commit -m "Add GitHub Pages deployment"
-git push origin main
+git push origin master
 ```
 
 ## 4. Готово! 🎉
