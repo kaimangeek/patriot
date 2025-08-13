@@ -1,6 +1,33 @@
 .app {
   min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.app-content {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(102, 126, 234, 0.5) transparent;
+}
+
+.app-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.app-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.app-content::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 3px;
+}
+
+.app-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.7);
 }
 
 .hero-section {
@@ -17,7 +44,25 @@
 
 .features-section {
   padding: 60px 0;
-  background: #f8f9fa;
+  background: #ffffff;
+}
+
+/* Стили для текста в секции преимуществ */
+.features-section h1,
+.features-section h2,
+.features-section h3,
+.features-section h4,
+.features-section h5,
+.features-section h6,
+.features-section .max-ui-typography-title,
+.features-section [data-max-ui="typography-title"] {
+  color: #2c3e50 !important;
+}
+
+.features-section p,
+.features-section .max-ui-typography-body,
+.features-section [data-max-ui="typography-body"] {
+  color: #495057 !important;
 }
 
 .feature-icon {
@@ -31,6 +76,7 @@
   border-radius: 16px;
   color: white;
   flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
 .about-section {
@@ -41,7 +87,25 @@
 
 .form-section {
   padding: 60px 0;
-  background: #f8f9fa;
+  background: #ffffff;
+}
+
+/* Стили для текста в секции формы */
+.form-section h1,
+.form-section h2,
+.form-section h3,
+.form-section h4,
+.form-section h5,
+.form-section h6,
+.form-section .max-ui-typography-title,
+.form-section [data-max-ui="typography-title"] {
+  color: #2c3e50 !important;
+}
+
+.form-section p,
+.form-section .max-ui-typography-body,
+.form-section [data-max-ui="typography-body"] {
+  color: #495057 !important;
 }
 
 .submit-button {
@@ -138,6 +202,25 @@
   margin: 0;
 }
 
+/* Улучшенные стили для панелей в белых секциях */
+.features-section .max-ui-panel,
+.form-section .max-ui-panel {
+  background-color: white !important;
+  border: 1px solid #e9ecef !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Принудительные стили для текста в белых секциях */
+.features-section *,
+.form-section * {
+  color: inherit;
+}
+
+.features-section .max-ui-typography,
+.form-section .max-ui-typography {
+  color: #2c3e50 !important;
+}
+
 /* Стили для кнопок */
 .max-ui-button {
   border-radius: 12px;
@@ -151,10 +234,17 @@
   border-radius: 12px;
   border: 2px solid #e9ecef;
   transition: all 0.3s ease;
+  background-color: white !important;
+  color: #2c3e50 !important;
 }
 
 .max-ui-input:focus,
 .max-ui-textarea:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.max-ui-input::placeholder,
+.max-ui-textarea::placeholder {
+  color: #6c757d !important;
 }

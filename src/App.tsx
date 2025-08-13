@@ -83,8 +83,9 @@ const App = () => {
 
   return (
     <div className="app">
-      {/* Hero секция */}
-      <Panel mode="primary" className="hero-section">
+      <div className="app-content">
+        {/* Hero секция */}
+        <Panel mode="primary" className="hero-section">
         <Container>
           <Grid gap={24} cols={1}>
             <Flex direction="column" align="center" gap={16}>
@@ -116,7 +117,7 @@ const App = () => {
         <Container>
           <Grid gap={24} cols={1}>
             <div style={{ textAlign: 'center' }}>
-              <Typography.Title>
+              <Typography.Title style={{ color: '#2c3e50' }}>
                 Почему выбирают нас?
               </Typography.Title>
             </div>
@@ -125,10 +126,10 @@ const App = () => {
               <Flex gap={16} align="flex-start">
                 <div className="feature-icon">🤖</div>
                 <Flex direction="column" gap={8}>
-                  <Typography.Title>
+                  <Typography.Title style={{ color: '#2c3e50' }}>
                     Опыт разработки
                   </Typography.Title>
-                  <Typography.Body color="secondary">
+                  <Typography.Body style={{ color: '#495057' }}>
                     Более 50 успешно реализованных ботов для различных отраслей бизнеса
                   </Typography.Body>
                 </Flex>
@@ -137,10 +138,10 @@ const App = () => {
               <Flex gap={16} align="flex-start">
                 <div className="feature-icon">⚡</div>
                 <Flex direction="column" gap={8}>
-                  <Typography.Title>
+                  <Typography.Title style={{ color: '#2c3e50' }}>
                     Быстрая разработка
                   </Typography.Title>
-                  <Typography.Body color="secondary">
+                  <Typography.Body style={{ color: '#495057' }}>
                     Создаем ботов за 7-14 дней с полным тестированием и запуском
                   </Typography.Body>
                 </Flex>
@@ -149,10 +150,10 @@ const App = () => {
               <Flex gap={16} align="flex-start">
                 <div className="feature-icon">🎯</div>
                 <Flex direction="column" gap={8}>
-                  <Typography.Title>
+                  <Typography.Title style={{ color: '#2c3e50' }}>
                     Индивидуальный подход
                   </Typography.Title>
-                  <Typography.Body color="secondary">
+                  <Typography.Body style={{ color: '#495057' }}>
                     Каждый бот разрабатывается под специфику вашего бизнеса и аудитории
                   </Typography.Body>
                 </Flex>
@@ -161,10 +162,10 @@ const App = () => {
               <Flex gap={16} align="flex-start">
                 <div className="feature-icon">📈</div>
                 <Flex direction="column" gap={8}>
-                  <Typography.Title>
+                  <Typography.Title style={{ color: '#2c3e50' }}>
                     Рост продаж
                   </Typography.Title>
-                  <Typography.Body color="secondary">
+                  <Typography.Body style={{ color: '#495057' }}>
                     Наши клиенты увеличивают продажи в среднем на 30% после внедрения ботов
                   </Typography.Body>
                 </Flex>
@@ -205,12 +206,12 @@ const App = () => {
         <Container>
           <Grid gap={24} cols={1}>
             <div style={{ textAlign: 'center' }}>
-              <Typography.Title>
+              <Typography.Title style={{ color: '#2c3e50' }}>
                 Заказать разработку бота
               </Typography.Title>
             </div>
             <div style={{ textAlign: 'center' }}>
-              <Typography.Body color="secondary">
+              <Typography.Body style={{ color: '#495057' }}>
                 Оставьте заявку, и наш менеджер свяжется с вами в течение 2 часов
               </Typography.Body>
             </div>
@@ -298,7 +299,8 @@ const App = () => {
         isVisible={notification.isVisible}
         onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
       />
-    </div>
+        </div>
+      </div>
   )
 }
 
