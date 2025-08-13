@@ -1,5 +1,4 @@
 import { 
-  Panel, 
   Grid, 
   Container, 
   Flex, 
@@ -7,9 +6,10 @@ import {
   Button, 
   Input, 
   Textarea,
-  Avatar,
   Spinner
 } from '@maxhub/max-ui'
+import logoImage from './assets/logo.png'
+
 import { useState } from 'react'
 import { sendApplicationToManager } from './utils/maxApi'
 import Notification from './components/Notification'
@@ -22,7 +22,6 @@ import './App.css'
 const App = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
-    company: '',
     phone: '',
     email: '',
     description: ''
@@ -57,7 +56,6 @@ const App = () => {
         // Очистка формы
         setFormData({
           name: '',
-          company: '',
           phone: '',
           email: '',
           description: ''
@@ -81,226 +79,248 @@ const App = () => {
     }
   }
 
-  return (
+    return (
     <div className="app">
       <div className="app-content">
-        {/* Hero секция */}
-        <Panel mode="primary" className="hero-section">
-        <Container>
-          <Grid gap={24} cols={1}>
-            <Flex direction="column" align="center" gap={16}>
-              <Avatar.Container size={120} form="squircle" className="hero-avatar">
-                <Avatar.Text>{siteConfig.agency.shortName}</Avatar.Text>
-              </Avatar.Container>
-              <div style={{ textAlign: 'center' }}>
-                <Typography.Display>
-                  {siteConfig.agency.name}
-                </Typography.Display>
+        {/* Основная панель жидкого стекла */}
+        <div className="main-glass-panel">
+          <Container>
+            <Grid gap={40} cols={1}>
+              
+              {/* Hero секция */}
+              <div className="hero-section">
+                <Grid gap={32} cols={1}>
+                                  <Flex direction="column" align="center" gap={24}>
+                  <div className="hero-avatar-custom">
+                    <div 
+                      className="logo-image"
+                      style={{ 
+                        backgroundImage: `url(${logoImage})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center 25%',
+                        backgroundRepeat: 'no-repeat',
+                        width: '100%',
+                        height: '100%'
+                      }}
+                      onError={() => {
+                        console.error('Ошибка загрузки изображения');
+                        // Fallback на текстовый логотип
+                        const element = document.querySelector('.logo-image') as HTMLElement;
+                        if (element) {
+                          element.style.backgroundImage = 'none';
+                          element.textContent = siteConfig.agency.shortName;
+                          element.style.display = 'flex';
+                          element.style.alignItems = 'center';
+                          element.style.justifyContent = 'center';
+                          element.style.fontSize = '2rem';
+                          element.style.fontWeight = 'bold';
+                          element.style.color = 'white';
+                        }
+                      }}
+                    />
+                  </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <Typography.Display style={{ fontSize: '3rem', fontWeight: '700', color: 'white' }}>
+                        {siteConfig.agency.name}
+                      </Typography.Display>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <Typography.Headline style={{ fontSize: '1.5rem', fontWeight: '500', opacity: 0.9, color: 'white' }}>
+                        {siteConfig.agency.description}
+                      </Typography.Headline>
+                    </div>
+                    <div style={{ textAlign: 'center', maxWidth: '600px' }}>
+                      <Typography.Body style={{ fontSize: '1.1rem', lineHeight: '1.6', opacity: 0.8, color: 'white' }}>
+                        {siteConfig.agency.fullDescription}
+                      </Typography.Body>
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                      <Typography.Body style={{ fontSize: '1rem', opacity: 0.7, fontStyle: 'italic', color: 'white' }}>
+                        {siteConfig.agency.tagline}
+                      </Typography.Body>
+                    </div>
+                  </Flex>
+                </Grid>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <Typography.Headline color="secondary">
-                  {siteConfig.agency.description}
-                </Typography.Headline>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <Typography.Body color="secondary">
-                  {siteConfig.agency.fullDescription}
-                </Typography.Body>
-              </div>
-            </Flex>
-          </Grid>
-        </Container>
-      </Panel>
 
-      {/* Преимущества */}
-      <Panel mode="secondary" className="features-section">
-        <Container>
-          <Grid gap={24} cols={1}>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Title style={{ color: '#2c3e50' }}>
-                Почему выбирают нас?
-              </Typography.Title>
-            </div>
-            
-            <Grid gap={16} cols={1}>
-              <Flex gap={16} align="flex-start">
-                <div className="feature-icon">🤖</div>
-                <Flex direction="column" gap={8}>
-                  <Typography.Title style={{ color: '#2c3e50' }}>
-                    Опыт разработки
-                  </Typography.Title>
-                  <Typography.Body style={{ color: '#495057' }}>
-                    Более 50 успешно реализованных ботов для различных отраслей бизнеса
-                  </Typography.Body>
-                </Flex>
-              </Flex>
-
-              <Flex gap={16} align="flex-start">
-                <div className="feature-icon">⚡</div>
-                <Flex direction="column" gap={8}>
-                  <Typography.Title style={{ color: '#2c3e50' }}>
-                    Быстрая разработка
-                  </Typography.Title>
-                  <Typography.Body style={{ color: '#495057' }}>
-                    Создаем ботов за 7-14 дней с полным тестированием и запуском
-                  </Typography.Body>
-                </Flex>
-              </Flex>
-
-              <Flex gap={16} align="flex-start">
-                <div className="feature-icon">🎯</div>
-                <Flex direction="column" gap={8}>
-                  <Typography.Title style={{ color: '#2c3e50' }}>
-                    Индивидуальный подход
-                  </Typography.Title>
-                  <Typography.Body style={{ color: '#495057' }}>
-                    Каждый бот разрабатывается под специфику вашего бизнеса и аудитории
-                  </Typography.Body>
-                </Flex>
-              </Flex>
-
-              <Flex gap={16} align="flex-start">
-                <div className="feature-icon">📈</div>
-                <Flex direction="column" gap={8}>
-                  <Typography.Title style={{ color: '#2c3e50' }}>
-                    Рост продаж
-                  </Typography.Title>
-                  <Typography.Body style={{ color: '#495057' }}>
-                    Наши клиенты увеличивают продажи в среднем на 30% после внедрения ботов
-                  </Typography.Body>
-                </Flex>
-              </Flex>
-            </Grid>
-          </Grid>
-        </Container>
-      </Panel>
-
-      {/* О нас */}
-      <Panel mode="primary" className="about-section">
-        <Container>
-          <Grid gap={24} cols={1}>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Title>
-                О нашем агентстве
-              </Typography.Title>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Body color="secondary">
-                "Патриот слушает" — это команда профессионалов, специализирующихся на создании 
-                интеллектуальных ботов для мессенджера MAX. Мы понимаем, что каждый бизнес уникален, 
-                поэтому создаем персонализированные решения, которые действительно работают.
-              </Typography.Body>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Body color="secondary">
-                Наша миссия — помочь российскому бизнесу стать более эффективным и клиентоориентированным 
-                с помощью современных технологий автоматизации.
-              </Typography.Body>
-            </div>
-          </Grid>
-        </Container>
-      </Panel>
-
-      {/* Форма заявки */}
-      <Panel mode="secondary" className="form-section">
-        <Container>
-          <Grid gap={24} cols={1}>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Title style={{ color: '#2c3e50' }}>
-                Заказать разработку бота
-              </Typography.Title>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Body style={{ color: '#495057' }}>
-                Оставьте заявку, и наш менеджер свяжется с вами в течение 2 часов
-              </Typography.Body>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-              <Grid gap={16} cols={1}>
-                <Input
-                  placeholder="Ваше имя"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  required
-                />
-                
-                <Input
-                  placeholder="Название компании"
-                  value={formData.company}
-                  onChange={(e) => handleInputChange('company', e.target.value)}
-                  required
-                />
-                
-                <Input
-                  placeholder="Телефон"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  required
-                />
-                
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  required
-                />
-                
-                <Textarea
-                  placeholder="Опишите вашу задачу и желаемый функционал бота"
-                  value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
-                  rows={4}
-                  required
-                />
-                
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="submit-button"
-                >
-                  {isSubmitting ? (
-                    <Flex gap={8} align="center">
-                      <Spinner />
-                      Отправляем...
+              {/* Преимущества */}
+              <div className="features-section">
+                <Grid gap={32} cols={1}>
+                  <div style={{ textAlign: 'center' }}>
+                    <Typography.Title style={{ color: 'white', fontSize: '2.5rem', fontWeight: '700' }}>
+                      Почему выбирают нас?
+                    </Typography.Title>
+                  </div>
+                  
+                  <Grid gap={20} cols={1}>
+                    <Flex gap={20} align="flex-start">
+                      <div className="feature-icon">{siteConfig.features[0].icon}</div>
+                      <Flex direction="column" gap={8}>
+                        <Typography.Title style={{ color: 'white', fontSize: '1.3rem', fontWeight: '600' }}>
+                          {siteConfig.features[0].title}
+                        </Typography.Title>
+                        <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.5' }}>
+                          {siteConfig.features[0].description}
+                        </Typography.Body>
+                      </Flex>
                     </Flex>
-                  ) : (
-                    'Отправить заявку'
-                  )}
-                </Button>
-              </Grid>
-            </form>
-          </Grid>
-        </Container>
-      </Panel>
 
-      {/* Футер */}
-      <Panel mode="primary" className="footer">
-        <Container>
-          <Flex direction="column" align="center" gap={8}>
-            <Typography.Title>
-              Патриот слушает
-            </Typography.Title>
-            <div style={{ textAlign: 'center' }}>
-              <Typography.Body color="secondary">
-                Создание ботов для MAX • 2024
-              </Typography.Body>
-            </div>
-          </Flex>
-        </Container>
-      </Panel>
+                    <Flex gap={20} align="flex-start">
+                      <div className="feature-icon">{siteConfig.features[1].icon}</div>
+                      <Flex direction="column" gap={8}>
+                        <Typography.Title style={{ color: 'white', fontSize: '1.3rem', fontWeight: '600' }}>
+                          {siteConfig.features[1].title}
+                        </Typography.Title>
+                        <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.5' }}>
+                          {siteConfig.features[1].description}
+                        </Typography.Body>
+                      </Flex>
+                    </Flex>
 
-      {/* Уведомления */}
-      <Notification
-        message={notification.message}
-        type={notification.type}
-        isVisible={notification.isVisible}
-        onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
-      />
+                    <Flex gap={20} align="flex-start">
+                      <div className="feature-icon">{siteConfig.features[2].icon}</div>
+                      <Flex direction="column" gap={8}>
+                        <Typography.Title style={{ color: 'white', fontSize: '1.3rem', fontWeight: '600' }}>
+                          {siteConfig.features[2].title}
+                        </Typography.Title>
+                        <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.5' }}>
+                          {siteConfig.features[2].description}
+                        </Typography.Body>
+                      </Flex>
+                    </Flex>
+
+                    <Flex gap={20} align="flex-start">
+                      <div className="feature-icon">{siteConfig.features[3].icon}</div>
+                      <Flex direction="column" gap={8}>
+                        <Typography.Title style={{ color: 'white', fontSize: '1.3rem', fontWeight: '600' }}>
+                          {siteConfig.features[3].title}
+                        </Typography.Title>
+                        <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.5' }}>
+                          {siteConfig.features[3].description}
+                        </Typography.Body>
+                      </Flex>
+                    </Flex>
+                  </Grid>
+                </Grid>
+              </div>
+
+              {/* О нас */}
+              <div className="about-section">
+                <Grid gap={32} cols={1}>
+                  <div style={{ textAlign: 'center' }}>
+                    <Typography.Title style={{ color: 'white', fontSize: '2.5rem', fontWeight: '700' }}>
+                      О нашем агентстве
+                    </Typography.Title>
+                  </div>
+                  <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+                    <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.1rem', lineHeight: '1.7' }}>
+                      "Патриот слушает" — это команда профессионалов, специализирующихся на создании 
+                      интеллектуальных ботов для мессенджера MAX. Мы понимаем, что каждый бизнес уникален, 
+                      поэтому создаем персонализированные решения, которые действительно работают.
+                    </Typography.Body>
+                  </div>
+                  <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+                    <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.1rem', lineHeight: '1.7' }}>
+                      Наша миссия — помочь российскому бизнесу стать более эффективным и клиентоориентированным 
+                      с помощью современных технологий автоматизации.
+                    </Typography.Body>
+                  </div>
+                </Grid>
+              </div>
+
+              {/* Форма заявки */}
+              <div className="form-section">
+                <Grid gap={32} cols={1}>
+                  <div style={{ textAlign: 'center' }}>
+                    <Typography.Title style={{ color: 'white', fontSize: '2.5rem', fontWeight: '700' }}>
+                      Заказать разработку бота
+                    </Typography.Title>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1.1rem' }}>
+                      Оставьте заявку, и наш менеджер свяжется с вами в течение 2 часов
+                    </Typography.Body>
+                  </div>
+
+                  <form onSubmit={handleSubmit}>
+                    <Grid gap={16} cols={1}>
+                      <Input
+                        placeholder="Ваше имя"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                      />
+                      
+                      <Input
+                        placeholder="Телефон"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        required
+                      />
+                      
+                      <Input
+                        placeholder="Email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        required
+                      />
+                      
+                      <Textarea
+                        placeholder="Опишите вашу задачу и желаемый функционал бота"
+                        value={formData.description}
+                        onChange={(e) => handleInputChange('description', e.target.value)}
+                        rows={4}
+                        required
+                      />
+                      
+                      <Button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="submit-button"
+                      >
+                        {isSubmitting ? (
+                          <Flex gap={8} align="center">
+                            <Spinner />
+                            Отправляем...
+                          </Flex>
+                        ) : (
+                          'Отправить заявку'
+                        )}
+                      </Button>
+                    </Grid>
+                  </form>
+                </Grid>
+              </div>
+
+              {/* Футер */}
+              <div className="footer">
+                <Flex direction="column" align="center" gap={12}>
+                  <Typography.Title style={{ color: 'white', fontSize: '1.5rem', fontWeight: '600' }}>
+                    Патриот слушает
+                  </Typography.Title>
+                  <div style={{ textAlign: 'center' }}>
+                    <Typography.Body style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem' }}>
+                      Создание ботов для MAX • 2025
+                    </Typography.Body>
+                  </div>
+                </Flex>
+              </div>
+
+            </Grid>
+          </Container>
         </div>
+
+        {/* Уведомления */}
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          isVisible={notification.isVisible}
+          onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
+        />
       </div>
+    </div>
   )
 }
 

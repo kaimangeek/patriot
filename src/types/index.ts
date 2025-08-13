@@ -1,7 +1,6 @@
 // Типы для формы заявки
 export interface FormData {
   name: string
-  company: string
   phone: string
   email: string
   description: string

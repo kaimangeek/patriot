@@ -47,3 +47,9 @@ out/
 
 # GitHub Actions artifacts
 .github/workflows/*.bak
+
+# Large image files
+*.PNG
+*.png
+public/logo.png
+src/assets/logo.PNG

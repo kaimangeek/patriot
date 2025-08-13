@@ -22,7 +22,6 @@ export const sendApplicationToManager = async (formData: FormData): Promise<bool
 🤖 *Новая заявка на создание бота*
 
 👤 *Имя:* ${formData.name}
-🏢 *Компания:* ${formData.company}
 📞 *Телефон:* ${formData.phone}
 📧 *Email:* ${formData.email}
 
@@ -75,7 +74,6 @@ const sendMessageViaBotApi = async (formData: FormData): Promise<boolean> => {
 🤖 *Новая заявка на создание бота*
 
 👤 *Имя:* ${formData.name}
-🏢 *Компания:* ${formData.company}
 📞 *Телефон:* ${formData.phone}
 📧 *Email:* ${formData.email}
 
