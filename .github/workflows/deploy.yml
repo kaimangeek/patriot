@@ -35,6 +35,16 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
         
+      - name: Create fallback logo
+        run: |
+          mkdir -p public
+          # Create a simple fallback logo if none exists
+          if [ ! -f "public/logo.png" ] && [ ! -f "src/assets/logo.png" ] && [ ! -f "src/assets/logo.PNG" ]; then
+            echo "Creating fallback logo..."
+            # Create a simple 1x1 transparent PNG as fallback
+            echo "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" | base64 -d > public/logo.png
+          fi
+        
       - name: Build project
         run: npm run build
         env:
