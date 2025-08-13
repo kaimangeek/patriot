@@ -35,11 +35,17 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
         
-      - name: Create fallback logo
+      - name: Copy logo to public folder
         run: |
           mkdir -p public
-          # Create a simple fallback logo if none exists
-          if [ ! -f "public/logo.png" ] && [ ! -f "src/assets/logo.png" ] && [ ! -f "src/assets/logo.PNG" ]; then
+          # Copy logo from assets to public if it exists
+          if [ -f "src/assets/logo.PNG" ]; then
+            echo "Copying logo from assets to public..."
+            cp src/assets/logo.PNG public/logo.png
+          elif [ -f "src/assets/logo.png" ]; then
+            echo "Copying logo from assets to public..."
+            cp src/assets/logo.png public/logo.png
+          elif [ ! -f "public/logo.png" ]; then
             echo "Creating fallback logo..."
             # Create a simple 1x1 transparent PNG as fallback
             echo "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" | base64 -d > public/logo.png

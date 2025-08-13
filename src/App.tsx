@@ -10,14 +10,6 @@ import {
 } from '@maxhub/max-ui'
 // Logo import - will use fallback if not available
 let logoImage: string = '/logo.png' // Default fallback to public folder
-try {
-  // Try to import from assets first
-  const assetLogo = new URL('./assets/logo.png', import.meta.url).href
-  logoImage = assetLogo
-} catch {
-  // If assets logo not found, use public folder fallback
-  logoImage = '/logo.png'
-}
 
 import { useState } from 'react'
 import { sendApplicationToManager } from './utils/maxApi'
