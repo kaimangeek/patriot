@@ -31,6 +31,9 @@ jobs:
         
       - name: Build project
         run: npm run build
+        env:
+          VITE_MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+          VITE_GITHUB_PAGES_URL: https://kaimangeek.github.io/patriot
         
       - name: Setup Pages
         uses: actions/configure-pages@v4

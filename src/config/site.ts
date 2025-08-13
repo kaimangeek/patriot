@@ -20,9 +20,9 @@ export const siteConfig = {
   max: {
     botUsername: 'patriotlistensbot',
     apiUrl: 'https://botapi.max.ru',
-    webhookUrl: process.env.GITHUB_PAGES_URL ? `${process.env.GITHUB_PAGES_URL}/webhook` : 'https://kaimangeek.github.io/patriot/webhook', // URL для webhook
+    webhookUrl: import.meta.env.VITE_GITHUB_PAGES_URL ? `${import.meta.env.VITE_GITHUB_PAGES_URL}/webhook` : 'https://kaimangeek.github.io/patriot/webhook', // URL для webhook
     // Токен будет получен при создании бота
-    accessToken: process.env.MAX_BOT_TOKEN || 'your_bot_token_here'
+    accessToken: import.meta.env.VITE_MAX_BOT_TOKEN || 'your_bot_token_here'
   },
 
   // Преимущества агентства
@@ -78,6 +78,6 @@ export const siteConfig = {
     title: 'Патриот слушает - Создание ботов для MAX',
     description: 'Профессиональное агентство по созданию ботов для мессенджера MAX. Автоматизация общения с клиентами и увеличение продаж.',
     keywords: 'боты, MAX, мессенджер, автоматизация, чат-боты, разработка',
-    url: process.env.GITHUB_PAGES_URL || 'https://kaimangeek.github.io/patriot'
+    url: import.meta.env.VITE_GITHUB_PAGES_URL || 'https://kaimangeek.github.io/patriot'
   }
 }
