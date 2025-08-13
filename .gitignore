@@ -45,5 +45,5 @@ Desktop.ini
 build/
 out/
 
-# GitLab CI artifacts
-.gitlab-ci.yml.bak
+# GitHub Actions artifacts
+.github/workflows/*.bak

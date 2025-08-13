@@ -27,26 +27,23 @@ cp env.example .env
 npm run setup-bot
 ```
 
-## 3. Развертывание на GitLab (3 минуты)
+## 3. Развертывание на GitHub Pages (3 минуты)
 
-1. **Создайте проект** в GitLab: `patriot`
-2. **Сделайте публичным** для бесплатного хостинга
-3. **Добавьте переменную** в GitLab CI/CD:
+1. **Настройте GitHub Pages** в Settings → Pages
+2. **Выберите Source:** "GitHub Actions"
+3. **Добавьте переменную** в Settings → Secrets and variables → Actions:
    - `MAX_BOT_TOKEN` = ваш_токен_бота
 
 ```bash
-# Первый коммит
-git init
+# Push в репозиторий
 git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://gitlab.com/kaimangeek/patriot.git
-git push -u origin main
+git commit -m "Add GitHub Pages deployment"
+git push origin main
 ```
 
 ## 4. Готово! 🎉
 
-- **Сайт:** `https://kaimangeek.gitlab.io/patriot`
+- **Сайт:** `https://kaimangeek.github.io/patriot`
 - **Бот:** @patriotlistensbot
 - **Автоматическое развертывание** при каждом push
 
