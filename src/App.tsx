@@ -9,7 +9,11 @@ import {
   Spinner
 } from '@maxhub/max-ui'
 // Logo import - will use fallback if not available
-let logoImage: string = '/logo.png' // Default fallback to public folder
+// Logo import - will use fallback if not available
+let logoImage: string = './logo.png' // Use relative path
+
+// Debug info
+console.log('Logo path:', logoImage)
 
 import { useState } from 'react'
 import { sendApplicationToManager } from './utils/maxApi'
