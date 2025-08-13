@@ -1,0 +1,76 @@
+# GitLab CI/CD для автоматического развертывания на GitLab Pages
+
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+# Кэширование node_modules
+cache:
+  paths:
+    - node_modules/
+
+# Установка зависимостей
+install_dependencies:
+  stage: install
+  image: node:18-alpine
+  script:
+    - npm ci --legacy-peer-deps
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+# Проверка типов TypeScript
+type_check:
+  stage: test
+  image: node:18-alpine
+  dependencies:
+    - install_dependencies
+  script:
+    - npm run build
+  only:
+    - merge_requests
+    - main
+
+# Сборка проекта
+build:
+  stage: build
+  image: node:18-alpine
+  dependencies:
+    - install_dependencies
+  script:
+    - echo "Сборка проекта Patriot Listens..."
+    - npm run build
+    - echo "Проверка собранных файлов..."
+    - ls -la dist/
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  only:
+    - main
+    - merge_requests
+
+# Настройка GitLab Pages
+pages:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - build
+  script:
+    - echo "Настройка GitLab Pages для Patriot Listens..."
+    - mkdir -p public
+    - cp -r dist/* public/
+    - echo "Файлы скопированы в public/"
+    - ls -la public/
+    - echo "GitLab Pages настроены успешно!"
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 week
+  only:
+    - main
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
